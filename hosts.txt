@@ -1,0 +1,2 @@
+[staging_servers]
+minio   ansible_host=194.87.147.134     ansible_user=root

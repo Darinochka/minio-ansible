@@ -1,0 +1,5 @@
+- name: test-minio
+  hosts: all  
+  become: yes
+  roles:
+    - minio

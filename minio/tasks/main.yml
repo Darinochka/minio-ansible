@@ -1,0 +1,32 @@
+- name: Install required system packages
+  apt:
+    pkg:
+      - python3-pip
+      - docker.io
+    state: latest
+    update_cache: true
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+    name: docker-compose
+
+- name: Docker | Start docker
+  service: name=docker.service state=started enabled=yes
+
+- name: Copy docker-compose.yml
+  template:
+    src: templates/docker-compose.yml.j2
+    dest: docker-compose.yml
+
+- name: Start docker-compose
+  docker_compose:
+    project_src: ./
+    state: present
+
+- name: Install mc
+  get_url:
+    url: https://dl.min.io/client/mc/release/linux-amd64/mc
+    dest: ./mc
+    mode: +x
+
